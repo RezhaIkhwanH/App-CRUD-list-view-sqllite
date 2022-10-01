@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">crud SQLlite</string>
+    <string name="add_data">add data</string>
+</resources>

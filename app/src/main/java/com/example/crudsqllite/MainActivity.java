@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG_ID = "id";
     public static final String TAG_NAME = "name";
     public static final String TAG_ADDRESS = "address";
+    public static final String TAG_IMG = "image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 final String idx = itemList.get(position).getId();
                 final String name = itemList.get(position).getName();
                 final String address = itemList.get(position).getAddress();
+                final String phat = itemList.get(position).getPhat();
 
                 final CharSequence[] dialogitem = {"Edit", "Delete"};
                 dialog = new AlertDialog.Builder(MainActivity.this);
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra(TAG_ID, idx);
                                 intent.putExtra(TAG_NAME, name);
                                 intent.putExtra(TAG_ADDRESS, address);
+                                intent.putExtra(TAG_IMG, phat);
+
                                 startActivity(intent);
                                 break;
                             case 1:
@@ -109,12 +113,14 @@ public class MainActivity extends AppCompatActivity {
             String id = row.get(i).get(TAG_ID);
             String poster = row.get(i).get(TAG_NAME);
             String title = row.get(i).get(TAG_ADDRESS);
+            String phat = row.get(i).get(TAG_IMG);
 
             data data = new data();
 
             data.setId(id);
             data.setName(poster);
             data.setAddress(title);
+            data.setPhat(phat);
 
             itemList.add(data);
         }

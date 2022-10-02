@@ -2,6 +2,9 @@ package com.example.crudsqllite.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +62,13 @@ public class Adapter extends BaseAdapter {
         id.setText(data.getId());
         name.setText(data.getName());
         address.setText(data.getAddress());
-        imgView.setImageResource(R.drawable.redpanda);
+        if (data.getPhat() != null) {
+            Bitmap img= BitmapFactory.decodeFile(data.getPhat());
+            imgView.setImageBitmap(img);
+        }else {
+            imgView.setImageResource(R.drawable.redpanda);
+        }
+        System.out.println(data.getPhat());
         return convertView;
     }
 }

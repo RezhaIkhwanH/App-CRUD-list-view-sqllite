@@ -13,13 +13,14 @@ import java.util.HashMap;
 
 public class Db extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     static final String DATABASE_NAME = "digitaltalent.db";
     public static final String TABLE_SQLite = "sqlite";
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_ADDRESS = "address";
+    public static final String COLUMN_image = "image";
 
     public Db(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +31,8 @@ public class Db extends SQLiteOpenHelper {
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + TABLE_SQLite + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, " +
                 COLUMN_NAME + " TEXT NOT NULL, " +
-                COLUMN_ADDRESS + " TEXT NOT NULL" +
+                COLUMN_ADDRESS + " TEXT NOT NULL," +
+                COLUMN_image + " TEXT " +
                 " )";
         db.execSQL(SQL_CREATE_MOVIE_TABLE);
     }
@@ -53,6 +55,7 @@ public class Db extends SQLiteOpenHelper {
                 map.put(COLUMN_ID, cursor.getString(0));
                 map.put(COLUMN_NAME, cursor.getString(1));
                 map.put(COLUMN_ADDRESS, cursor.getString(2));
+                map.put(COLUMN_image, cursor.getString(3));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -62,21 +65,22 @@ public class Db extends SQLiteOpenHelper {
         return wordList;
     }
 
-    public void insert(String name, String address) {
+    public void insert( String name, String address,String phat) {
         SQLiteDatabase database = this.getWritableDatabase();
-        String queryValues = "INSERT INTO " + TABLE_SQLite + " (name, address) " +
-                "VALUES ('" + name + "', '" + address + "')";
+        String queryValues = "INSERT INTO " + TABLE_SQLite + " (name, address, image) " +
+                "VALUES ('" + name + "', '" + address + "','" + phat + "')";
         Log.e("insert sqlite ", "" + queryValues);
         database.execSQL(queryValues);
 //        database.close();
     }
 
-    public void update(int id, String name, String address) {
+    public void update(int id, String name, String address,String phat) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         String updateQuery = "UPDATE " + TABLE_SQLite + " SET "
                 + COLUMN_NAME + "='" + name + "', "
-                + COLUMN_ADDRESS + "='" + address + "'"
+                + COLUMN_ADDRESS + "='" + address + "',"
+                + COLUMN_image + "='" + phat + "' "
                 + " WHERE " + COLUMN_ID + "=" + "'" + id + "'";
         Log.e("update sqlite ", updateQuery);
         database.execSQL(updateQuery);

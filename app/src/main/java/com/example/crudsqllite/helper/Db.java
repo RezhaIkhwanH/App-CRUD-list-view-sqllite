@@ -8,6 +8,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -89,8 +91,15 @@ public class Db extends SQLiteOpenHelper {
 
     public void delete(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
+        Cursor data=database.rawQuery("SELECT * FROM " + TABLE_SQLite+" WHERE " + COLUMN_ID + "=" + "'" + id + "'",null);
+        data.moveToFirst();
+        String img= data.getString((int)data.getColumnIndex(COLUMN_image));
 
+        File imgFile=new File(img);
+        System.out.println(imgFile.getAbsolutePath());
+        imgFile.delete();
         String updateQuery = "DELETE FROM " + TABLE_SQLite + " WHERE " + COLUMN_ID + "=" + "'" + id + "'";
+
         Log.e("update sqlite ", updateQuery);
         database.execSQL(updateQuery);
 //        database.close();

@@ -65,8 +65,6 @@ public class Adapter extends BaseAdapter {
         if (data.getPhat() != null) {
             Bitmap img= BitmapFactory.decodeFile(data.getPhat());
             imgView.setImageBitmap(img);
-        }else {
-            imgView.setImageResource(R.drawable.redpanda);
         }
         System.out.println(data.getPhat());
         return convertView;
